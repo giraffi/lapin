@@ -9,11 +9,8 @@ module Lapino
     # from the app.
     use Rack::Deflater
 
-    configure :development, :test do
-      set :raise_error    => false
-      set :show_exception => false
-      enable :logging
-    end
+    set :raise_error    => false
+    set :show_exception => false
 
     helpers do
       # define helper methods
@@ -47,10 +44,18 @@ module Lapino
       @exchange ||= Lapino.client.exchange(Config.exchange, type: 'direct')
     end
 
+=begin
+    # For debugging
+    get '/' do
+      200
+    end
+=end
+
     # Recieve post data, validate and redirect it
     # to an AMQP broker.
-    post '/publish.json', provides: :json do
-      content_type :json
+    #post '/publish.json', provides: :json do
+    post "/publish.json" do
+      #content_type :json
 
       payload = request.body.read
       if validate_json(payload)
