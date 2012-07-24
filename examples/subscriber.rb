@@ -3,13 +3,7 @@
 
 require "amqp"
 
-AMQP.start(
-  host:  'mq01.higanlabos.com',
-  vhost: '/moon-rabbit-2012',
-  user:  'azukiarai',
-  pass:  'azukiarai'
-  #host: 'localhost'
-) do |conn|
+AMQP.start(host: 'localhost') do |conn|
   channel  = AMQP::Channel.new(conn)
   exchange = channel.direct('amqp.nagios')
   queue    = channel.queue("", exclusive: true)
