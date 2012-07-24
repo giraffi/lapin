@@ -2,9 +2,15 @@
 
 A sinatra-based app that redirects data received via HTTP to an AMQP message broker.
 
+## Installation
+
+```bash
+$ gem install lapino
+```
+
 ## Setup
 
-Configure the following options in `config.ru` before running Lapino::Server.
+Create `config.ru` in the root folder before running Lapino::Server.
 
 ```ruby
 require 'lapino'
@@ -16,6 +22,7 @@ Lapino::Config.logging     = true if ENV['RACK_ENV'] == 'development'
 Lapino.options.debug       = true if ENV['RACK_ENV'] == 'development'
 Lapino.options.quiet       = false
 
+run Lapino::Server
 ```
 
 ## Usage
@@ -27,4 +34,3 @@ $ puma config.ru
 ```
 
 `CTRL+C` to stop the server.
-
