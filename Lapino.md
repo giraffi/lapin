@@ -4,7 +4,7 @@ A sinatra-based app that redirects data received via HTTP to an AMPQ message bro
 
 ## Setup
 
-Configure the following options in `config.ru` to run Lapino::Server.
+Configure the following options in `config.ru` before starting Lapino::Server.
 
 ```ruby
 
@@ -19,10 +19,10 @@ Lapino.options.quiet       = false
 
 ## Usage
 
-Start Lapino::Server using [puma](https://github.com/puma/puma/) as web server just like below. 
+Just do the following to start Lapino::Server using [puma](https://github.com/puma/puma/) as web serve.
 
 ```bash
 $ puma config.ru
 ```
 
-And `CTRL+C` to stop the server.
+`CTRL+C` to stop the server.
