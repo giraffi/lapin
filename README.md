@@ -7,6 +7,7 @@ A sinatra-based app that redirects data received via HTTP to an AMPQ message bro
 Configure the following options in `config.ru` before running Lapino::Server.
 
 ```ruby
+require 'lapino'
 
 Lapino::Config.amqp_url    = 'amqp://guest:guest@localhost/'
 Lapino::Config.exchange    = 'amq.direct'
