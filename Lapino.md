@@ -19,6 +19,10 @@ Lapino.options.quiet       = false
 
 ## Usage
 
+Start Lapino::Server using [puma](https://github.com/puma/puma/) as web server just like below. 
+
 ```bash
 $ puma config.ru
 ```
+
+And `CTRL+C` to stop the server.
