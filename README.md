@@ -26,3 +26,4 @@ $ puma config.ru
 ```
 
 `CTRL+C` to stop the server.
+
