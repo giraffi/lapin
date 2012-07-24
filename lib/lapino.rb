@@ -1,7 +1,6 @@
 # encoding: utf-8
 require 'bunny'
 
-
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 ENV['RACK_ENV'] ||= 'development'
 

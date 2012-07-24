@@ -3,6 +3,7 @@ require 'uri'
 
 module Lapino
   class Config
+
     class << self
       attr_accessor :amqp_url
       attr_accessor :exchange, :routing_key

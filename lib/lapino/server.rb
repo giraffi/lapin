@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 require 'sinatra/base'
 require 'multi_json'
 
@@ -10,8 +9,11 @@ module Lapino
     # from the app.
     use Rack::Deflater
 
-    set :raise_error    => false
-    set :show_exception => false
+    configure :development, :test do
+      set :raise_error    => false
+      set :show_exception => false
+      enable :logging
+    end
 
     helpers do
       # define helper methods
@@ -47,10 +49,12 @@ module Lapino
 
     # Recieve post data, validate and redirect it
     # to an AMQP broker.
-    post '/publish', provides: :json do
+    post '/publish.json', provides: :json do
       content_type :json
-      if validate_json(request.body)
-        exchange.publish(request.body, key: Config.routing_key)
+
+      payload = request.body.read
+      if validate_json(payload)
+        exchange.publish(payload, key: Config.routing_key)
         # No Content
         status 204
       else
