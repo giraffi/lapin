@@ -10,7 +10,7 @@ $ gem install lapino
 
 ## Setup
 
-Create `config.ru` in the root folder before running Lapino::Server.
+Create `config.ru` in the root folder of your app.
 
 ```ruby
 require 'lapino'
@@ -27,7 +27,7 @@ run Lapino::Server
 
 ## Usage
 
-Just do the following to run Lapino::Server using [puma](https://github.com/puma/puma/) for the web server.
+Just do the following to start `Lapino::Server` using [puma](https://github.com/puma/puma/) for the web server.
 
 ```bash
 $ puma config.ru
