@@ -40,5 +40,8 @@ Just do the following to start `Lapino::Server` using [puma](https://github.com/
 ```bash
 $ puma config.ru
 ```
+Or with [thin](https://github.com/macournoyer/thin/),
 
-`CTRL+C` to stop the server.
+```bash
+$ thin start -R config.ru
+```
