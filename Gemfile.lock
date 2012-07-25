@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lapino (0.1.0)
+    lapino (0.1.1)
       bunny (~> 0.8.0)
       multi_json (~> 1.3.0)
       rack (~> 1.4.0)
