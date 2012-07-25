@@ -30,13 +30,6 @@ module Lapino
       @client
     end
 
-    def debug(msg)
-      if options.debug
-        time = Time.now.strftime('%H:%M:%S %Y-%m-%d')
-        puts "** [#{time}] $debug #$$: #{msg}"
-      end
-    end
-
     def log(msg)
       unless options.quiet
         time = Time.now.strftime('%H:%M:%S %Y-%m-%d')
