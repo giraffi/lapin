@@ -4,8 +4,10 @@ A sinatra-based app that redirects data received via HTTP to an AMQP message bro
 
 ## Installation
 
-```bash
-$ gem install lapino
+To use with bundler, drop in your Gemfile.
+
+```ruby
+gem "lapino", :git => "git://github.com/giraffi/lapino.git"
 ```
 
 ## Setup
