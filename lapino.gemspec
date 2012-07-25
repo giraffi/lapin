@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.version     = "0.1.0"
   s.authors     = ["azukiwasher"]
   s.email       = ["azukiwasher@higanworks.com"]
-  s.homepage    = ""
+  s.homepage    = "https://github.com/giraffi/lapino.git"
   s.summary     = %q{A sinatra-based app that redirects data received via HTTP to an AMQP message broker}
   s.description = %q{A sinatra-based app that redirects data received via HTTP to an AMQP message broker.}
 
