@@ -12,12 +12,12 @@ module Lapino
       def amqp_config
         uri = URI.parse(amqp_url)
         {
-          user: uri.user,
-          pass: uri.password,
-          host: uri.host,
-          port: (uri.port || 5672),
-          vhost: uri.path,
-          logging: @logging || false
+          :user => uri.user,
+          :pass => uri.password,
+          :host => uri.host,
+          :port => (uri.port || 5672),
+          :vhost => uri.path,
+          :logging => @logging || false
         }
       rescue Object => e
         raise "Invalid AMQP url: #{uri.inspect} (#{e})"

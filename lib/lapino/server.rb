@@ -14,18 +14,19 @@ module Lapino
 
     helpers do
       # define helper methods
-      def json_halt(code, reaseon)
+      def json_status(code, reason)
         content_type "application/json"
-        halt code
-        ::MultiJson.encode({
-          status: code,
-          reason: reason
-        })
+        status code
+        MultiJson.encode({:status => code, :reason => reason})
       end
 
       def validate_json(data)
         begin
-          ::MultiJson.decode(data)
+          if MultiJson.respond_to?(:adapter)
+            MultiJson.load(data)
+          else
+            MultiJson.decode(data)
+          end
           return true
         rescue
           return false
@@ -36,28 +37,36 @@ module Lapino
     error do
       e = request.env['sinatra.error']
       Lapino.log "ERROR: #{e.class}: #{e.message}"
-      json_halt 412, e.message
+      json_status 412, e.message
     end
 
     # Create an exchange from the current AMQP connection.
     def exchange
-      @exchange ||= Lapino.client.exchange(Config.exchange, type: 'direct')
-      p @exchange
+      @exchange ||= Lapino.client.exchange(Config.exchange, :type => 'direct')
     end
 
     # Recieve post data, validate and redirect it
     # to an AMQP broker.
     post '/publish.json' do
       content_type :json
-
-      payload = request.body.read
-      if validate_json(payload)
-        exchange.publish(payload, key: Config.routing_key)
-        # No Content
-        status 204
-      else
-        # Bad request
-        halt 400
+      begin
+        payload = request.body.read
+        if validate_json(payload)
+          exchange.publish(payload, :key => Config.routing_key)
+          # No Content
+          status 204
+        else
+          # Bad request
+          status 400
+        end
+      rescue Errno::ECONNRESET => e
+        Lapino.log "ERROR: #{e.class}: #{e.message}"
+        Lapino.client = nil
+        json_status 502, e.message
+      rescue Bunny::ConnectionError, Bunny::ServerDownError => e
+        # Bad gateway
+        Lapino.log "ERROR: #{e.class}: #{e.message}"
+        json_status 502, e.message
       end
     end
   end

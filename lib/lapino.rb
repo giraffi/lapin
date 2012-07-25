@@ -28,8 +28,6 @@ module Lapino
         @client = c
       end
       @client
-    rescue => e
-      raise "ERROR: #{e.message}"
     end
 
     def debug(msg)
