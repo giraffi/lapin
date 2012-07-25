@@ -1,5 +1,7 @@
 # Lapino
 
+[![Build Status](https://secure.travis-ci.org/giraffi/lapino.png?branch=master)](http://travis-ci.org/giraffi/lapino)
+
 A sinatra-based app that redirects data received via HTTP to an AMQP message broker.
 
 ## Installation
