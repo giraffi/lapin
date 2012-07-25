@@ -62,10 +62,11 @@ module Lapino
       rescue Errno::ECONNRESET => e
         Lapino.log "ERROR: #{e.class}: #{e.message}"
         Lapino.client = nil
+        # Bad gateway
         json_status 502, e.message
       rescue Bunny::ConnectionError, Bunny::ServerDownError => e
-        # Bad gateway
         Lapino.log "ERROR: #{e.class}: #{e.message}"
+        # Bad gateway
         json_status 502, e.message
       end
     end
