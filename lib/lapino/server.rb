@@ -42,20 +42,13 @@ module Lapino
     # Create an exchange from the current AMQP connection.
     def exchange
       @exchange ||= Lapino.client.exchange(Config.exchange, type: 'direct')
+      p @exchange
     end
-
-=begin
-    # For debugging
-    get '/' do
-      200
-    end
-=end
 
     # Recieve post data, validate and redirect it
     # to an AMQP broker.
-    #post '/publish.json', provides: :json do
-    post "/publish.json" do
-      #content_type :json
+    post '/publish.json' do
+      content_type :json
 
       payload = request.body.read
       if validate_json(payload)
