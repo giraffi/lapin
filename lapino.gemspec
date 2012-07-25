@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "lapino"
-  s.version     = "0.1.0"
+  s.version     = "0.1.1"
   s.authors     = ["azukiwasher"]
   s.email       = ["azukiwasher@higanworks.com"]
   s.homepage    = "https://github.com/giraffi/lapino.git"

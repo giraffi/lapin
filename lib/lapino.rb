@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 ENV['RACK_ENV'] ||= 'development'
 
 module Lapino
-  VERSION = '0.1.0'
+  VERSION = '0.1.1'
 
   autoload :Config, 'lapino/config'
   autoload :Server, 'lapino/server'
