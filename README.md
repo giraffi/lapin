@@ -34,12 +34,7 @@ run Lapino::Server
 
 ## Usage
 
-Just do the following to start `Lapino::Server` using [puma](https://github.com/puma/puma/) for the web server.
-
-```bash
-$ puma config.ru
-```
-Or with [thin](https://github.com/macournoyer/thin/),
+Just do the following to start `Lapino::Server` using [thin](https://github.com/macournoyer/thin/) for the web server.
 
 ```bash
 $ thin start -R config.ru
