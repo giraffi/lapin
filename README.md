@@ -39,6 +39,7 @@ Just do the following to start `Lapino::Server` using [thin](https://github.com/
 ```bash
 $ thin start -R config.ru
 ```
+
 Or, for [passenger](http://www.modrails.com/) (standalone version),
 
 ```bash
