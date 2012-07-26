@@ -11,6 +11,8 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
+public
+example
 
 # YARD artifacts
 .yardoc
@@ -19,4 +21,3 @@ doc/
 .DS_Store
 config.ru.development
 .rbx
-.rbx/*

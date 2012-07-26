@@ -17,7 +17,10 @@ AMQP.start(host: 'localhost') do |conn|
 
   puts " [*] Waiting for logs. To exit press CTRL+C"
 
+  i = 1
   queue.subscribe do |header, payload|
-    puts " [x] #{header}:#{payload}"
+    #puts " [x] #{header}:#{payload}"
+    puts " [x] #{header} ----- #{i}"
+    i += 1
   end
 end
