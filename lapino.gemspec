@@ -26,5 +26,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rack-perftools_profiler"
   s.add_development_dependency "yajl-ruby"
   s.add_development_dependency "rack-test"
-  s.add_development_dependency "puma"
+  s.add_development_dependency "thin"
 end
