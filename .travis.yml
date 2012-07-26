@@ -7,6 +7,9 @@ rvm:
   - 1.9.2
   - 1.9.3
   - rbx
+  - ree
 
 notifications:
-  email: false
+  email:
+    on_success: always
+    on_failure: always

@@ -25,7 +25,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rake"
   s.add_development_dependency "yajl-ruby"
   s.add_development_dependency "rack-test"
-  s.add_development_dependency "shoulda"
-  s.add_development_dependency "mocha"
   s.add_development_dependency "puma"
 end

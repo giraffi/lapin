@@ -13,6 +13,9 @@ rescue Bundler::BundleError => e
   exit e.status_code
 end
 
+require 'simplecov'
+SimpleCov.start
+
 require 'test/unit'
 require 'shoulda'
 require 'mocha'
