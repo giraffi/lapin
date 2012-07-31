@@ -13,13 +13,12 @@ rescue Bundler::BundleError => e
   exit e.status_code
 end
 
-require 'simplecov'
-SimpleCov.start
-
 require 'test/unit'
 require 'shoulda'
 require 'mocha'
 require 'rack/test'
+require 'simplecov'
+SimpleCov.start
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'lapino'

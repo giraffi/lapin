@@ -80,5 +80,6 @@ class ServerTest < Test::Unit::TestCase
       post "/publish.json", @body, {"CONTENT_TYPE" => "application/json"}
       assert_equal last_response.status, 502
     end
+
   end
 end
