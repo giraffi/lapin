@@ -21,3 +21,5 @@ doc/
 .DS_Store
 config.ru.development
 .rbx
+log
+
