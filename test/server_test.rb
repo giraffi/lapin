@@ -1,5 +1,6 @@
 # encoding: utf-8
 require 'test_helper'
+require 'mocha'
 
 class ServerTest < Test::Unit::TestCase
   include Rack::Test::Methods
@@ -8,29 +9,26 @@ class ServerTest < Test::Unit::TestCase
     Lapino::Server.new
   end
 
-  context "POST /publish" do
+  context "POST /publish.json" do
     setup do
-      @body   = "{\"data\": \"sample\"}"
+      @payload   = "{\"data\": \"sample\"}"
       Lapino::Config.amqp_url = 'amqp://guest:guest@localhost/'
     end
 
     teardown do
-      @body   = nil
+      @payload   = nil
     end
 
     should "return 204 with an appropriate request" do
-      @body   = "{\"data\": \"sample\"}"
-      Lapino::Config.amqp_url = 'amqp://guest:guest@localhost/'
-
       m = mock()
       Bunny.expects(:new).with(Lapino::Config.amqp_config).returns(m)
       m.expects(:start)
       e = mock("exchange")
       m.stubs(:exchange).with(Lapino::Config.exchange, {:type => 'direct'}).returns(e)
-      e.stubs(:publish).with("{\"data\": \"sample\"}", {:key => '*'}).returns(1)
+      e.stubs(:publish).with(@payload, {:key => 'giraffi.nagios'})
 
-      post "/publish.json", @body, {"CONTENT_TYPE" => "application/json"}
-      assert_equal last_request.body.string, @body
+      post "/publish.json", @payload, {"CONTENT_TYPE" => "application/json", "HTTP_X_ROUTING_KEY" => "giraffi.nagios"}
+      assert_equal last_request.body.string, @payload
       assert_equal last_response.status, 204
     end
 
@@ -50,7 +48,7 @@ class ServerTest < Test::Unit::TestCase
       Bunny.expects(:new).with(Lapino::Config.amqp_config).returns(m)
       m.stubs(:start).raises(Exception.new)
 
-      post "/publish.json", @body, {"CONTENT_TYPE" => "application/json"}
+      post "/publish.json", @payload, {"CONTENT_TYPE" => "application/json"}
       assert_equal last_response.status, 412
     end
 
@@ -59,7 +57,7 @@ class ServerTest < Test::Unit::TestCase
       Bunny.expects(:new).with(Lapino::Config.amqp_config).returns(m)
       m.stubs(:start).raises(Errno::ECONNRESET.new)
 
-      post "/publish.json", @body, {"CONTENT_TYPE" => "application/json"}
+      post "/publish.json", @payload, {"CONTENT_TYPE" => "application/json"}
       assert_equal last_response.status, 502
     end
 
@@ -68,7 +66,7 @@ class ServerTest < Test::Unit::TestCase
       Bunny.expects(:new).with(Lapino::Config.amqp_config).returns(m)
       m.stubs(:start).raises(Bunny::ConnectionError.new)
 
-      post "/publish.json", @body, {"CONTENT_TYPE" => "application/json"}
+      post "/publish.json", @payload, {"CONTENT_TYPE" => "application/json"}
       assert_equal last_response.status, 502
     end
 
@@ -77,7 +75,7 @@ class ServerTest < Test::Unit::TestCase
       Bunny.expects(:new).with(Lapino::Config.amqp_config).returns(m)
       m.stubs(:start).raises(Bunny::ServerDownError.new)
 
-      post "/publish.json", @body, {"CONTENT_TYPE" => "application/json"}
+      post "/publish.json", @payload, {"CONTENT_TYPE" => "application/json"}
       assert_equal last_response.status, 502
     end
 

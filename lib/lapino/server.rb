@@ -36,7 +36,7 @@ module Lapino
 
     error do
       e = request.env['sinatra.error']
-      Lapino.log "ERROR: #{e.class}: #{e.message}"
+      Lapino.log "Error: #{e.class}: #{e.message}"
       json_status 412, e.message
     end
 
@@ -50,9 +50,16 @@ module Lapino
     post '/publish.json' do
       content_type :json
       begin
+
+        # Set routing key from headers
+        Config.routing_key = request.env['HTTP_X_ROUTING_KEY']
+
+        # Set payload from bod
         payload = request.body.read
+
         if validate_json(payload)
           exchange.publish(payload, :key => Config.routing_key)
+
           # No Content
           status 204
         else
@@ -60,12 +67,12 @@ module Lapino
           status 400
         end
       rescue Errno::ECONNRESET => e
-        Lapino.log "ERROR: #{e.class}: #{e.message}"
+        Lapino.log "Error: #{e.class}: #{e.message}"
         Lapino.client = nil
         # Bad gateway
         json_status 502, e.message
       rescue Bunny::ConnectionError, Bunny::ServerDownError => e
-        Lapino.log "ERROR: #{e.class}: #{e.message}"
+        Lapino.log "Error: #{e.class}: #{e.message}"
         # Bad gateway
         json_status 502, e.message
       end

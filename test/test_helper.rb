@@ -15,7 +15,6 @@ end
 
 require 'test/unit'
 require 'shoulda'
-require 'mocha'
 require 'rack/test'
 require 'simplecov'
 SimpleCov.start
