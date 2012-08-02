@@ -37,7 +37,8 @@ run Lapino::Server
 
 ## Usage
 
-Just do the following to start `Lapino::Server` using [thin](https://github.com/macournoyer/thin/) for the web server.
+Just do the following to start `Lapino::Server` using [thin](https://github.com/macournoyer/thin/) for the web server.  
+You need a running RabbitMQ server according to the `Lapino::Config.amqp_url` option.
 
 ```bash
 $ thin start -R config.ru
@@ -48,5 +49,3 @@ Or, for [passenger](http://www.modrails.com/) (standalone version),
 ```bash
 $ passenger start -R config.ru
 ```
-
-You need a running RabbitMQ server according to the `Lapino::Config.amqp_url` option.
