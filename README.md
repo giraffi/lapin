@@ -4,6 +4,10 @@
 
 A sinatra-based app that redirects data received via HTTP to an AMQP message broker.
 
+## Requirements
+
+* [RabbitMQ](http://www.rabbitmq.com/) server
+
 ## Installation
 
 ```bash
