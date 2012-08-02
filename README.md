@@ -48,3 +48,5 @@ Or, for [passenger](http://www.modrails.com/) (standalone version),
 ```bash
 $ passenger start -R config.ru
 ```
+
+You need a running RabbitMQ server according to the `Lapino::Config.amqp_url` option.
