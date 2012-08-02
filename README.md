@@ -37,8 +37,7 @@ run Lapino::Server
 
 ## Usage
 
-Just do the following to start `Lapino::Server` using [thin](https://github.com/macournoyer/thin/) for the web server.  
-You need a running RabbitMQ server according to the `Lapino::Config.amqp_url` option.
+Just do the following to start `Lapino::Server` using [thin](https://github.com/macournoyer/thin/) for the web server. To handle POST requests, you need a running RabbitMQ server according to the `Lapino::Config.amqp_url` option.
 
 ```bash
 $ thin start -R config.ru
