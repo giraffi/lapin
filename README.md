@@ -49,7 +49,7 @@ Or, for [passenger](http://www.modrails.com/) (standalone version),
 $ passenger start -R config.ru
 ```
 
-To handle POST requests like below, you need a running RabbitMQ server according to the `Lapino::Config.amqp_url` option beforehand.
+To handle a POST request like below, you need a running RabbitMQ server according to the `Lapino::Config.amqp_url` option beforehand.
 
 ```bash
 $ curl -v -H "Accept: application/json" -H "Content-type: application/json" \
