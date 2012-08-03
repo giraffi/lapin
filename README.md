@@ -52,7 +52,8 @@ $ passenger start -R config.ru
 To handle a POST request like below, you need a running RabbitMQ server according to the `Lapino::Config.amqp_url` option beforehand.
 
 ```bash
-$ curl -v -H "Accept: application/json" -H "Content-type: application/json" \
+$ curl -v \
+> -H "Accept: application/json" -H "Content-type: application/json" -H "X-ROUTING-KEY: giraffi.nagios" \
 > -X POST -d ' {"user":{"name":"foo", "email":"hoge@example.com"}}'  \
 > http://localhost:3000/publish.json
 ```
