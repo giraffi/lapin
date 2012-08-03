@@ -4,7 +4,6 @@ source "http://rubygems.org"
 gemspec
 
 group :development do
-  gem "ricer"
   gem "thin"
   gem "passenger"
 end
