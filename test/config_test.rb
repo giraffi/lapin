@@ -16,7 +16,12 @@ class ConfigTest < Test::Unit::TestCase
       assert_equal Lapin::Config.amqp_config[:logging], false
     end
 
-    should 'set routing routing to * when x-routing-key is not set' do
+    should 'overwrite vhost by the vhost attribute' do
+      Lapin::Config.vhost = 'your-vhost'
+      assert_equal Lapin::Config.amqp_config[:vhost], 'your-vhost'
+    end
+
+    should 'set routing key to * when x-routing-key is nil' do
       Lapin::Config.routing_key = nil
       assert_equal "*", Lapin::Config.routing_key
     end

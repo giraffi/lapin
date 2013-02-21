@@ -8,7 +8,6 @@ require 'lapin/config'
 require 'lapin/server'
 
 module Lapin
-
   class << self
     attr_accessor :options
     attr_accessor :client
