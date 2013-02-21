@@ -22,4 +22,4 @@ doc/
 config.ru.development
 .rbx
 log
-
+.DS_Store

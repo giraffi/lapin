@@ -6,25 +6,25 @@ class ServerTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
   def app
-    Lapino::Server.new
+    Lapin::Server.new
   end
 
   context "POST /publish.json" do
     setup do
-      @payload   = "{\"data\": \"sample\"}"
-      Lapino::Config.amqp_url = 'amqp://guest:guest@localhost/'
+      @payload = "{\"data\": \"sample\"}"
+      Lapin::Config.amqp_url = 'amqp://guest:guest@localhost/'
     end
 
     teardown do
-      @payload   = nil
+      @payload = nil
     end
 
     should "return 204 with an appropriate request" do
       m = mock()
-      Bunny.expects(:new).with(Lapino::Config.amqp_config).returns(m)
+      Bunny.expects(:new).with(Lapin::Config.amqp_config).returns(m)
       m.expects(:start)
       e = mock("exchange")
-      m.stubs(:exchange).with(Lapino::Config.exchange, {:type => 'direct'}).returns(e)
+      m.stubs(:exchange).with(Lapin::Config.exchange, {:type => 'direct'}).returns(e)
       e.stubs(:publish).with(@payload, {:key => 'giraffi.nagios'})
 
       post "/publish.json", @payload, {"CONTENT_TYPE" => "application/json", "HTTP_X_ROUTING_KEY" => "giraffi.nagios"}
@@ -40,12 +40,12 @@ class ServerTest < Test::Unit::TestCase
 
   context "Error handling" do
     setup do
-      Lapino.options.quiet = true
+      Lapin.options.quiet = true
     end
 
     should "return 412 when the sinatra.error is catched" do
       m = mock()
-      Bunny.expects(:new).with(Lapino::Config.amqp_config).returns(m)
+      Bunny.expects(:new).with(Lapin::Config.amqp_config).returns(m)
       m.stubs(:start).raises(Exception.new)
 
       post "/publish.json", @payload, {"CONTENT_TYPE" => "application/json"}
@@ -54,7 +54,7 @@ class ServerTest < Test::Unit::TestCase
 
     should "return 502 when the connection is reset by peer" do
       m = mock()
-      Bunny.expects(:new).with(Lapino::Config.amqp_config).returns(m)
+      Bunny.expects(:new).with(Lapin::Config.amqp_config).returns(m)
       m.stubs(:start).raises(Errno::ECONNRESET.new)
 
       post "/publish.json", @payload, {"CONTENT_TYPE" => "application/json"}
@@ -63,7 +63,7 @@ class ServerTest < Test::Unit::TestCase
 
     should "return 502 when the no connection and no socket are found" do
       m = mock()
-      Bunny.expects(:new).with(Lapino::Config.amqp_config).returns(m)
+      Bunny.expects(:new).with(Lapin::Config.amqp_config).returns(m)
       m.stubs(:start).raises(Bunny::ConnectionError.new)
 
       post "/publish.json", @payload, {"CONTENT_TYPE" => "application/json"}
@@ -72,7 +72,7 @@ class ServerTest < Test::Unit::TestCase
 
     should "return 502 when the broken pipe is catched" do
       m = mock()
-      Bunny.expects(:new).with(Lapino::Config.amqp_config).returns(m)
+      Bunny.expects(:new).with(Lapin::Config.amqp_config).returns(m)
       m.stubs(:start).raises(Bunny::ServerDownError.new)
 
       post "/publish.json", @payload, {"CONTENT_TYPE" => "application/json"}

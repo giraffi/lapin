@@ -27,12 +27,12 @@ Create `config.ru` in the root folder of your app.
 ```ruby
 require 'lapin'
 
-Lapino::Config.amqp_url = 'amqp://guest:guest@localhost/vhost'
-Lapino::Config.exchange = 'amq.direct'
-Lapino::Config.logging  = true if ENV['RACK_ENV'] == 'development'
-Lapino.options.quiet    = false
+Lapin::Config.amqp_url = 'amqp://guest:guest@localhost/vhost'
+Lapin::Config.exchange = 'amq.direct'
+Lapin::Config.logging  = true if ENV['RACK_ENV'] == 'development'
+Lapin.options.quiet    = false
 
-run Lapino::Server
+run Lapin::Server
 ```
 
 ## Usage
