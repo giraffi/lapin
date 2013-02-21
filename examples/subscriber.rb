@@ -1,11 +1,11 @@
 #!/usr/bin/ruby
-# encoding: utf-8
+# -*- encoding: utf-8 -*-
 
 require "amqp"
 
 AMQP.start(host: 'localhost') do |conn|
   channel  = AMQP::Channel.new(conn)
-  exchange = channel.direct('amqp.nagios')
+  exchange = channel.direct('amqp.direct')
   queue    = channel.queue("", exclusive: true)
   queue.bind(exchange, routing_key: 'amqp.giraffi')
 
