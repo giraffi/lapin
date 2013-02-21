@@ -1,14 +1,13 @@
-# encoding: utf-8
-require 'bunny'
+# -*- encoding: utf-8 -*-
 
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 ENV['RACK_ENV'] ||= 'development'
 
-module Lapin
-  VERSION = '0.1.1'
+require 'bunny'
+require 'lapin/config'
+require 'lapin/server'
 
-  autoload :Config, 'lapin/config'
-  autoload :Server, 'lapin/server'
+module Lapin
 
   class << self
     attr_accessor :options
