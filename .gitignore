@@ -24,3 +24,4 @@ config.ru.development
 log
 .DS_Store
 config.ru
+Gemfile.lock
