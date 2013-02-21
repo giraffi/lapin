@@ -23,3 +23,4 @@ config.ru.development
 .rbx
 log
 .DS_Store
+config.ru
