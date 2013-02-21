@@ -7,7 +7,7 @@ AMQP.start(host: 'localhost') do |conn|
   channel  = AMQP::Channel.new(conn)
   exchange = channel.direct('amqp.nagios')
   queue    = channel.queue("", exclusive: true)
-  queue.bind(exchange, routing_key: 'giraffi.nagios')
+  queue.bind(exchange, routing_key: 'amqp.giraffi')
 
   Signal.trap("INT") do
     conn.close do
