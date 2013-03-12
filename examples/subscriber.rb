@@ -1,13 +1,13 @@
-#!/usr/bin/ruby
+#!/usr/bin/env ruby
 # -*- encoding: utf-8 -*-
 
 require "amqp"
+require "multi_json"
 
-AMQP.start(host: 'localhost') do |conn|
+AMQP.start("localhost:5672") do |conn|
   channel  = AMQP::Channel.new(conn)
-  exchange = channel.direct('amqp.direct')
-  queue    = channel.queue("", exclusive: true)
-  queue.bind(exchange, routing_key: 'amqp.giraffi')
+  exchange = channel.fanout('logs')
+  queue    = channel.queue("", :auto_delete => true).bind(exchange, :routing_key => 'amq.giraffi')
 
   Signal.trap("INT") do
     conn.close do
@@ -17,10 +17,7 @@ AMQP.start(host: 'localhost') do |conn|
 
   puts " [*] Waiting for logs. To exit press CTRL+C"
 
-  i = 1
-  queue.subscribe do |header, payload|
-    #puts " [x] #{header}:#{payload}"
-    puts " [x] #{header} ----- #{i}"
-    i += 1
+  queue.subscribe do |metadata, payload|
+    puts " [x] #{MultiJson.load(payload)}"
   end
 end

@@ -23,9 +23,11 @@ class ServerTest < Test::Unit::TestCase
       m = mock()
       Bunny.expects(:new).with(Lapin::Config.amqp_config).returns(m)
       m.expects(:start)
+      m.expects(:create_channel)
+      #m.stubs(:exchange).with(Lapin::Config.exchange, {:type => 'fanout'}).returns(e)
       e = mock("exchange")
-      m.stubs(:exchange).with(Lapin::Config.exchange, {:type => 'direct'}).returns(e)
-      e.stubs(:publish).with(@payload, {:key => 'giraffi.nagios'})
+      m.stubs(:fanout).with(Lapin::Config.exchange).returns(e)
+      e.stubs(:publish).with(@payload, {:routing_key => 'giraffi.nagios'})
 
       post "/publish.json", @payload, {"CONTENT_TYPE" => "application/json", "HTTP_X_ROUTING_KEY" => "giraffi.nagios"}
       assert_equal last_request.body.string, @payload
@@ -64,7 +66,7 @@ class ServerTest < Test::Unit::TestCase
     should "return 502 when the no connection and no socket are found" do
       m = mock()
       Bunny.expects(:new).with(Lapin::Config.amqp_config).returns(m)
-      m.stubs(:start).raises(Bunny::ConnectionError.new)
+      m.stubs(:start).raises(Bunny::ConnectionError.new("No connection: socket is nil.", "localhost", 5762))
 
       post "/publish.json", @payload, {"CONTENT_TYPE" => "application/json"}
       assert_equal last_response.status, 502
@@ -73,7 +75,7 @@ class ServerTest < Test::Unit::TestCase
     should "return 502 when the broken pipe is catched" do
       m = mock()
       Bunny.expects(:new).with(Lapin::Config.amqp_config).returns(m)
-      m.stubs(:start).raises(Bunny::ServerDownError.new)
+      m.stubs(:start).raises(Bunny::TCPConnectionFailed.new("Connection failure: connection is failed.", "localhost", 5762))
 
       post "/publish.json", @payload, {"CONTENT_TYPE" => "application/json"}
       assert_equal last_response.status, 502

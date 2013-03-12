@@ -42,7 +42,7 @@ module Lapin
 
     # Create an exchange from the current AMQP connection.
     def exchange
-      @exchange ||= Lapin.client.exchange(Config.exchange, :type => 'direct')
+      @exchange ||= Lapin.client.fanout(Config.exchange)
     end
 
     # Recieve post data, validate and redirect it
@@ -52,14 +52,13 @@ module Lapin
 
       begin
         # Set routing key from headers
-        Config.routing_key = request.env['HTTP_X_ROUTING_KEY']
+        Config.routing_key = request.env["HTTP_X_ROUTING_KEY"]
 
         # Set payload from bod
         payload = request.body.read
 
         if validate_json(payload)
-          exchange.publish(payload, :key => Config.routing_key)
-
+          exchange.publish(payload, :routing_key => Config.routing_key)
           # No Content
           status 204
         else

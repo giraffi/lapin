@@ -21,9 +21,10 @@ module Lapin
 
     def client
       unless @client
-        c = ::Bunny.new(Config.amqp_config)
-        c.start
-        @client = c
+        conn = Bunny.new(Config.amqp_config)
+        conn.start
+        conn.create_channel
+        @client = conn
       end
       @client
     end

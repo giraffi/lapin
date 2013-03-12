@@ -19,12 +19,13 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_dependency "rack",        "~> 1.4.0"
-  s.add_dependency "bunny",       "~> 0.8.0"
-  s.add_dependency "multi_json",  "~> 1.3.0"
-  s.add_dependency "sinatra",     "~> 1.3.0"
+  s.add_dependency "rack",       "~> 1.5.2"
+  s.add_dependency "bunny",      "~> 0.9.0.pre7"
+  s.add_dependency "multi_json", "~> 1.6.1"
+  s.add_dependency "sinatra",    "~> 1.3.5"
 
   s.add_development_dependency "rake"
+  s.add_development_dependency "amqp"
   s.add_development_dependency "yajl-ruby"
   s.add_development_dependency "rack-test"
   s.add_development_dependency "shoulda"

@@ -6,7 +6,7 @@ module Lapin
 
     class << self
       attr_accessor :amqp_url, :vhost
-      attr_accessor :exchange, :routing_key
+      attr_accessor :exchange, :routing_key, :queue
       attr_accessor :logging
 
       def amqp_config
@@ -15,8 +15,8 @@ module Lapin
           :user    => uri.user,
           :pass    => uri.password,
           :host    => uri.host,
-          :port    => (uri.port || 5672),
-          :vhost   => @vhost || uri.path ,
+          :port    => uri.port || 5672,
+          :vhost   => @vhost || uri.path,
           :logging => @logging || false
         }
       rescue Object => e
@@ -32,7 +32,7 @@ module Lapin
       end
 
       def exchange
-        @exchange ||= "amq.direct"
+        @exchange ||= "amq.fanout"
       end
 
       def routing_key
