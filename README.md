@@ -1,6 +1,6 @@
 # Lapin
 
-[![Build Status](https://secure.travis-ci.org/giraffi/lapin.png?branch=master)](http://travis-ci.org/giraffi/lapin)&nbsp;[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/giraffi/lapin)
+[![Build Status](https://secure.travis-ci.org/giraffi/lapin.png?branch=master)](http://travis-ci.org/giraffi/lapin)&nbsp;[![Code Climate](https://codeclimate.com/github/giraffi/lapin.png)](https://codeclimate.com/github/giraffi/lapin)
 
 A sinatra-based app that provides a JSON endpoint over HTTP for interacting with an AMQP message broker.
 
