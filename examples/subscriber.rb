@@ -4,7 +4,7 @@
 require "amqp"
 require "multi_json"
 
-AMQP.start("localhost:5672") do |conn|
+AMQP.start("amqp://localhost:5672/") do |conn|
   channel  = AMQP::Channel.new(conn)
   exchange = channel.fanout('logs')
   queue    = channel.queue("", :auto_delete => true).bind(exchange, :routing_key => 'amq.giraffi')
