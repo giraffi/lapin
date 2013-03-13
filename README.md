@@ -1,6 +1,6 @@
 # Lapin
 
-[![Build Status](https://secure.travis-ci.org/giraffi/lapin.png?branch=master)](http://travis-ci.org/giraffi/lapin)&nbsp;[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/giraffi/lapin)
+[![Build Status](https://secure.travis-ci.org/giraffi/lapin.png?branch=master)](http://travis-ci.org/giraffi/lapin)&nbsp;[![Code Climate](https://codeclimate.com/github/giraffi/lapin.png)](https://codeclimate.com/github/giraffi/lapin)
 
 A sinatra-based app that provides a JSON endpoint over HTTP for interacting with an AMQP message broker.
 
@@ -43,10 +43,10 @@ Just do the following to start `Lapin::Server` using [thin](https://github.com/m
 $ thin start -R config.ru
 ```
 
-Or, for [passenger](http://www.modrails.com/) (standalone version),
+Or, rackup with [puma](http://puma.io/),
 
 ```bash
-$ passenger start -R config.ru
+$ rackup config.ru -s puma
 ```
 
 To handle a POST request like below, you need a running RabbitMQ server according to the `Lapin::Config.amqp_url` option beforehand.
