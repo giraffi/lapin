@@ -6,4 +6,5 @@ gemspec
 group :development do
   gem "thin"
   gem "passenger"
+  gem "puma"
 end

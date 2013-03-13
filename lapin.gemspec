@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_dependency "rack",       "~> 1.5.2"
-  s.add_dependency "bunny",      "~> 0.9.0.pre7"
+  s.add_dependency "bunny",      "~> 0.9.0.pre8"
   s.add_dependency "multi_json", "~> 1.6.1"
   s.add_dependency "sinatra",    "~> 1.3.5"
 
